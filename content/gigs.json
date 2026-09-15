@@ -1,15 +1,15 @@
 {
   "gigs": [
-    { "date": "Oct 02–03", "name": "Finn Rees Tour", "venue": "Tasmania — Venues TBC", "link": "" },
-    { "date": "Oct 05–06", "name": "Kaiit supporting Olivia Dean", "venue": "Rod Laver Arena, Melbourne", "link": "https://www.rodlaverarena.com.au/" },
-    { "date": "Oct 08", "name": "Finn Rees East Coast Tour", "venue": "The Vanguard, Newtown", "link": "https://thevanguard.com.au/" },
-    { "date": "Oct 09", "name": "Finn Rees East Coast Tour", "venue": "The Church, Alexandria", "link": "https://phoenixcentralpark.com.au/the-church" },
-    { "date": "Oct 10", "name": "Finn Rees East Coast Tour", "venue": "Dingo Fest, Byron Bay", "link": "https://www.dingofestival.com/" },
-    { "date": "Nov 12", "name": "Romy Hernandez", "venue": "The Paris Cat, Melbourne", "link": "https://www.pariscat.com.au/" },
-    { "date": "Nov 13", "name": "Ella Thompson — Album Launch Tour", "venue": "The Vanguard, Newtown", "link": "https://thevanguard.com.au/" },
-    { "date": "Nov 14", "name": "Ella Thompson — Album Launch", "venue": "The Night Cat, Fitzroy", "link": "https://thenightcat.com.au/" },
-    { "date": "Nov 20", "name": "Ella Thompson — Album Launch Tour", "venue": "Summertown Studio, Adelaide", "link": "https://www.summertownstudio.com/" },
-    { "date": "Nov 21", "name": "Ella Thompson — Album Launch Tour", "venue": "The Memo, Healesville", "link": "https://www.yarraranges.vic.gov.au/Explore-Yarra-Ranges/Arts-and-our-creative-community/Cultural-venues/The-Memo-Healesville" },
-    { "date": "Feb 26", "name": "I Still Miss You — Album Launch", "venue": "Melbourne Recital Centre, Southbank", "link": "https://www.melbournerecital.com.au/" }
+    { "date": "2026-10-02", "endDate": "2026-10-03", "name": "Finn Rees Tour", "venue": "Tasmania — Venues TBC", "link": "" },
+    { "date": "2026-10-05", "endDate": "2026-10-06", "name": "Kaiit supporting Olivia Dean", "venue": "Rod Laver Arena, Melbourne", "link": "https://www.rodlaverarena.com.au/" },
+    { "date": "2026-10-08", "endDate": "", "name": "Finn Rees East Coast Tour", "venue": "The Vanguard, Newtown", "link": "https://thevanguard.com.au/" },
+    { "date": "2026-10-09", "endDate": "", "name": "Finn Rees East Coast Tour", "venue": "The Church, Alexandria", "link": "https://phoenixcentralpark.com.au/the-church" },
+    { "date": "2026-10-10", "endDate": "", "name": "Finn Rees East Coast Tour", "venue": "Dingo Fest, Byron Bay", "link": "https://www.dingofestival.com/" },
+    { "date": "2026-11-12", "endDate": "", "name": "Romy Hernandez", "venue": "The Paris Cat, Melbourne", "link": "https://www.pariscat.com.au/" },
+    { "date": "2026-11-13", "endDate": "", "name": "Ella Thompson — Album Launch Tour", "venue": "The Vanguard, Newtown", "link": "https://thevanguard.com.au/" },
+    { "date": "2026-11-14", "endDate": "", "name": "Ella Thompson — Album Launch", "venue": "The Night Cat, Fitzroy", "link": "https://thenightcat.com.au/" },
+    { "date": "2026-11-20", "endDate": "", "name": "Ella Thompson — Album Launch Tour", "venue": "Summertown Studio, Adelaide", "link": "https://www.summertownstudio.com/" },
+    { "date": "2026-11-21", "endDate": "", "name": "Ella Thompson — Album Launch Tour", "venue": "The Memo, Healesville", "link": "https://www.yarraranges.vic.gov.au/Explore-Yarra-Ranges/Arts-and-our-creative-community/Cultural-venues/The-Memo-Healesville" },
+    { "date": "2027-02-26", "endDate": "", "name": "I Still Miss You — Album Launch", "venue": "Melbourne Recital Centre, Southbank", "link": "https://www.melbournerecital.com.au/" }
   ]
 }

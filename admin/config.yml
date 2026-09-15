@@ -48,7 +48,11 @@ collections:
             widget: "list"
             summary: "{{date}} — {{name}}"
             fields:
-              - { label: "Date", name: "date", widget: "string" }
+              - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
+              - { label: "End Date (optional, for multi-day gigs)", name: "endDate", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, required: false, default: "" }
               - { label: "Act / Event Name", name: "name", widget: "string" }
               - { label: "Venue", name: "venue", widget: "string" }
               - { label: "Venue Link (optional)", name: "link", widget: "string", required: false, default: "" }
+        # Note: this list isn't sorted by date, and past gigs aren't deleted from
+        # here — they're just hidden on the live site once their date passes
+        # (see isGigPast() in script.js). Add new gigs anywhere in the list.

@@ -68,7 +68,31 @@ if (releaseFeature || releaseList) {
     .catch((err) => console.error("Failed to load releases:", err));
 }
 
-// Gig guide — fetched from content/gigs.json (editable via the CMS at /admin)
+// Gig guide — fetched from content/gigs.json (editable via the CMS at /admin).
+// Gigs are stored with real ISO dates (plus an optional endDate for multi-day
+// gigs) so past gigs can be automatically hidden once their date has passed —
+// nothing needs to be manually deleted from the list.
+function isGigPast(gig) {
+  const referenceDate = gig.endDate || gig.date;
+  if (!referenceDate) return false;
+  return new Date(`${referenceDate}T23:59:59`) < new Date();
+}
+
+function formatGigDate(gig) {
+  const monthDay = (isoDate) => {
+    const d = new Date(`${isoDate}T00:00:00`);
+    return { month: d.toLocaleString("en-US", { month: "short" }), day: String(d.getDate()).padStart(2, "0") };
+  };
+
+  const start = monthDay(gig.date);
+  if (!gig.endDate) return `${start.month} ${start.day}`;
+
+  const end = monthDay(gig.endDate);
+  return start.month === end.month
+    ? `${start.month} ${start.day}–${end.day}`
+    : `${start.month} ${start.day} – ${end.month} ${end.day}`;
+}
+
 const gigList = document.querySelector(".gig-list");
 if (gigList) {
   fetch("content/gigs.json")
@@ -76,35 +100,37 @@ if (gigList) {
     .then((data) => {
       gigList.innerHTML = "";
 
-      data.gigs.forEach((gig) => {
-        const li = document.createElement("li");
+      data.gigs
+        .filter((gig) => !isGigPast(gig))
+        .forEach((gig) => {
+          const li = document.createElement("li");
 
-        const dateEl = document.createElement("span");
-        dateEl.className = "gig-date";
-        dateEl.textContent = gig.date;
+          const dateEl = document.createElement("span");
+          dateEl.className = "gig-date";
+          dateEl.textContent = formatGigDate(gig);
 
-        const nameEl = document.createElement("span");
-        nameEl.className = "gig-name";
-        nameEl.textContent = gig.name;
+          const nameEl = document.createElement("span");
+          nameEl.className = "gig-name";
+          nameEl.textContent = gig.name;
 
-        li.append(dateEl, nameEl);
+          li.append(dateEl, nameEl);
 
-        if (gig.link) {
-          const linkEl = document.createElement("a");
-          linkEl.href = gig.link;
-          linkEl.target = "_blank";
-          linkEl.rel = "noopener";
-          linkEl.textContent = `${gig.venue} →`;
-          li.append(linkEl);
-        } else {
-          const venueEl = document.createElement("span");
-          venueEl.className = "gig-venue";
-          venueEl.textContent = gig.venue;
-          li.append(venueEl);
-        }
+          if (gig.link) {
+            const linkEl = document.createElement("a");
+            linkEl.href = gig.link;
+            linkEl.target = "_blank";
+            linkEl.rel = "noopener";
+            linkEl.textContent = `${gig.venue} →`;
+            li.append(linkEl);
+          } else {
+            const venueEl = document.createElement("span");
+            venueEl.className = "gig-venue";
+            venueEl.textContent = gig.venue;
+            li.append(venueEl);
+          }
 
-        gigList.append(li);
-      });
+          gigList.append(li);
+        });
     })
     .catch((err) => console.error("Failed to load gigs:", err));
 }
