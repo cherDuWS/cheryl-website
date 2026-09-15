@@ -1,27 +1,6 @@
 {
   "gigs": [
     {
-      "date": "2026-09-01",
-      "endDate": "",
-      "name": "TEST — Past date (should be hidden)",
-      "venue": "Test Venue, Melbourne",
-      "link": ""
-    },
-    {
-      "date": "2026-09-15",
-      "endDate": "",
-      "name": "TEST — Today's date (should show)",
-      "venue": "Test Venue, Melbourne",
-      "link": ""
-    },
-    {
-      "date": "2026-09-16",
-      "endDate": "",
-      "name": "TEST — Auto-hide check",
-      "venue": "Test Venue, Melbourne",
-      "link": ""
-    },
-    {
       "date": "2026-10-02",
       "endDate": "2026-10-03",
       "name": "Finn Rees Tour",
