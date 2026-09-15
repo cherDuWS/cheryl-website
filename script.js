@@ -72,22 +72,40 @@ if (releaseFeature || releaseList) {
 // Gigs are stored with real ISO dates (plus an optional endDate for multi-day
 // gigs) so past gigs can be automatically hidden once their date has passed —
 // nothing needs to be manually deleted from the list.
+
+// Returns a Date, or null if the string isn't a parseable date (e.g. hand-edited
+// JSON with a malformed value like "Nov, 2026, 1"). Callers must handle null
+// rather than let an Invalid Date silently compare as neither past nor future.
+function parseDate(dateString, timeSuffix) {
+  if (!dateString) return null;
+  const d = new Date(`${dateString}${timeSuffix}`);
+  return isNaN(d.getTime()) ? null : d;
+}
+
 function isGigPast(gig) {
-  const referenceDate = gig.endDate || gig.date;
+  const referenceDate = parseDate(gig.endDate || gig.date, "T23:59:59");
+  // Unknown/unparseable dates are treated as "not past" so a bad entry stays
+  // visible (and obviously wrong) rather than silently vanishing forever.
   if (!referenceDate) return false;
-  return new Date(`${referenceDate}T23:59:59`) < new Date();
+  return referenceDate < new Date();
 }
 
 function formatGigDate(gig) {
   const monthDay = (isoDate) => {
-    const d = new Date(`${isoDate}T00:00:00`);
+    const d = parseDate(isoDate, "T00:00:00");
+    if (!d) return null;
     return { month: d.toLocaleString("en-US", { month: "short" }), day: String(d.getDate()).padStart(2, "0") };
   };
 
   const start = monthDay(gig.date);
+  // If the date can't be parsed, fall back to showing the raw stored value
+  // (rather than "Invalid Date NaN") so a bad entry is obvious, not garbled.
+  if (!start) return gig.date || "";
   if (!gig.endDate) return `${start.month} ${start.day}`;
 
   const end = monthDay(gig.endDate);
+  if (!end) return `${start.month} ${start.day}`;
+
   return start.month === end.month
     ? `${start.month} ${start.day}–${end.day}`
     : `${start.month} ${start.day} – ${end.month} ${end.day}`;
