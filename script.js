@@ -127,6 +127,16 @@ if (gigList) {
 
       data.gigs
         .filter((gig) => !isGigPast(gig))
+        .sort((a, b) => {
+          const dateA = parseDate(a.date, "T00:00:00");
+          const dateB = parseDate(b.date, "T00:00:00");
+          // Gigs with an unparseable date sort to the end rather than breaking
+          // the ordering of everything else.
+          if (!dateA && !dateB) return 0;
+          if (!dateA) return 1;
+          if (!dateB) return -1;
+          return dateA - dateB;
+        })
         .forEach((gig) => {
           const li = document.createElement("li");
 
