@@ -11,13 +11,22 @@ public_folder: "/assets/img"
 
 collections:
   - name: "releases"
-    label: "Previous Releases"
+    label: "Releases"
     files:
       - name: "releases"
-        label: "Releases List"
+        label: "Releases"
         file: "content/releases.json"
         fields:
-          - label: "Releases"
+          - label: "Upcoming Release"
+            name: "upcoming"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Release Date Text", name: "date", widget: "string", hint: "e.g. \"Out October 23, 2026\"" }
+              - { label: "Cover Image", name: "image", widget: "image" }
+              - { label: "Link", name: "link", widget: "string" }
+          - label: "Previous Releases"
             name: "releases"
             widget: "list"
             summary: "{{title}}"

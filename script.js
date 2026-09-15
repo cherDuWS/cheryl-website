@@ -8,12 +8,28 @@ if (header) {
   window.addEventListener("scroll", updateHeaderScrollState, { passive: true });
 }
 
-// Previous releases — fetched from content/releases.json (editable via the CMS at /admin)
+// Releases (upcoming + previous) — fetched from content/releases.json (editable via the CMS at /admin)
+const releaseFeature = document.querySelector(".release-feature");
 const releaseList = document.querySelector(".release-list");
-if (releaseList) {
+if (releaseFeature || releaseList) {
   fetch("content/releases.json")
     .then((res) => res.json())
     .then((data) => {
+      if (releaseFeature && data.upcoming) {
+        const upcoming = data.upcoming;
+        releaseFeature.querySelector(".release-feature-media img").src = upcoming.image;
+        releaseFeature.querySelector(".release-feature-media img").alt = upcoming.title;
+        releaseFeature.querySelector(".eyebrow").textContent = upcoming.label;
+        releaseFeature.querySelector("h3").textContent = upcoming.title;
+        releaseFeature.querySelector(".release-date").textContent = upcoming.date;
+
+        const upcomingLink = releaseFeature.querySelector(".btn-outline");
+        upcomingLink.href = upcoming.link;
+        upcomingLink.textContent = `${upcoming.label} →`;
+      }
+
+      if (!releaseList) return;
+
       releaseList.innerHTML = "";
 
       data.releases.forEach((release) => {

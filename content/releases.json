@@ -1,4 +1,11 @@
 {
+  "upcoming": {
+    "title": "I Still Miss You",
+    "label": "New Amsterdam Records",
+    "date": "Out October 23, 2026",
+    "image": "assets/img/i-still-miss-you.jpg",
+    "link": "https://www.newamsterdamrecords.com/"
+  },
   "releases": [
     {
       "title": "Koi Kingdom",
