@@ -8,6 +8,91 @@ if (header) {
   window.addEventListener("scroll", updateHeaderScrollState, { passive: true });
 }
 
+// Previous releases — fetched from content/releases.json (editable via the CMS at /admin)
+const releaseList = document.querySelector(".release-list");
+if (releaseList) {
+  fetch("content/releases.json")
+    .then((res) => res.json())
+    .then((data) => {
+      releaseList.innerHTML = "";
+
+      data.releases.forEach((release) => {
+        const li = document.createElement("li");
+
+        const imgEl = document.createElement("img");
+        imgEl.src = release.image;
+        imgEl.alt = release.title;
+        li.append(imgEl);
+
+        const contentEl = document.createElement("div");
+        contentEl.className = "release-list-content";
+
+        const titleEl = document.createElement("h4");
+        titleEl.textContent = release.title;
+        contentEl.append(titleEl);
+
+        if (release.award) {
+          const awardEl = document.createElement("p");
+          awardEl.textContent = release.award;
+          contentEl.append(awardEl);
+        }
+
+        li.append(contentEl);
+
+        const linkEl = document.createElement("a");
+        linkEl.href = release.link;
+        linkEl.target = "_blank";
+        linkEl.rel = "noopener";
+        linkEl.textContent = "Listen →";
+        li.append(linkEl);
+
+        releaseList.append(li);
+      });
+    })
+    .catch((err) => console.error("Failed to load releases:", err));
+}
+
+// Gig guide — fetched from content/gigs.json (editable via the CMS at /admin)
+const gigList = document.querySelector(".gig-list");
+if (gigList) {
+  fetch("content/gigs.json")
+    .then((res) => res.json())
+    .then((data) => {
+      gigList.innerHTML = "";
+
+      data.gigs.forEach((gig) => {
+        const li = document.createElement("li");
+
+        const dateEl = document.createElement("span");
+        dateEl.className = "gig-date";
+        dateEl.textContent = gig.date;
+
+        const nameEl = document.createElement("span");
+        nameEl.className = "gig-name";
+        nameEl.textContent = gig.name;
+
+        li.append(dateEl, nameEl);
+
+        if (gig.link) {
+          const linkEl = document.createElement("a");
+          linkEl.href = gig.link;
+          linkEl.target = "_blank";
+          linkEl.rel = "noopener";
+          linkEl.textContent = `${gig.venue} →`;
+          li.append(linkEl);
+        } else {
+          const venueEl = document.createElement("span");
+          venueEl.className = "gig-venue";
+          venueEl.textContent = gig.venue;
+          li.append(venueEl);
+        }
+
+        gigList.append(li);
+      });
+    })
+    .catch((err) => console.error("Failed to load gigs:", err));
+}
+
 // Mobile nav toggle
 const toggle = document.querySelector(".nav-toggle");
 const nav = document.querySelector(".site-nav");

@@ -1,0 +1,46 @@
+backend:
+  name: github
+  repo: samuelLingMel/cheryl-website
+  branch: main
+  # Self-hosted OAuth provider (not Netlify) — deploy the api/auth.js + api/callback.js
+  # functions in this repo somewhere (e.g. Vercel) and put that deployment's URL below.
+  base_url: https://cheryl-website-rose.vercel.app
+  auth_endpoint: api/auth
+
+media_folder: "assets/img"
+public_folder: "/assets/img"
+
+collections:
+  - name: "releases"
+    label: "Previous Releases"
+    files:
+      - name: "releases"
+        label: "Releases List"
+        file: "content/releases.json"
+        fields:
+          - label: "Releases"
+            name: "releases"
+            widget: "list"
+            summary: "{{title}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Cover Image", name: "image", widget: "image" }
+              - { label: "Award (optional)", name: "award", widget: "string", required: false, default: "" }
+              - { label: "Listen Link", name: "link", widget: "string" }
+
+  - name: "gigs"
+    label: "Gig Guide"
+    files:
+      - name: "gigs"
+        label: "Gigs List"
+        file: "content/gigs.json"
+        fields:
+          - label: "Gigs"
+            name: "gigs"
+            widget: "list"
+            summary: "{{date}} — {{name}}"
+            fields:
+              - { label: "Date", name: "date", widget: "string" }
+              - { label: "Act / Event Name", name: "name", widget: "string" }
+              - { label: "Venue", name: "venue", widget: "string" }
+              - { label: "Venue Link (optional)", name: "link", widget: "string", required: false, default: "" }

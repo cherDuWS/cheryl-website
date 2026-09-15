@@ -1,0 +1,34 @@
+{
+  "releases": [
+    {
+      "title": "Koi Kingdom",
+      "image": "assets/img/koi-kingdom.jpg",
+      "award": "2025 APRA/AMCOS Art Music Award — Work of the Year: Jazz",
+      "link": "https://koikingdom.bandcamp.com/album/koi-kingdom"
+    },
+    {
+      "title": "A Pinky Promise",
+      "image": "assets/img/a-pinky-promise.jpg",
+      "award": "2024 APRA/AMCOS Art Music Award — Work of the Year: Jazz",
+      "link": "https://monashschoolofmusicandperformance.bandcamp.com/album/a-pinky-promise"
+    },
+    {
+      "title": "Pink Milk",
+      "image": "assets/img/pink-milk.jpg",
+      "award": "",
+      "link": "https://koikingdom.bandcamp.com/album/pink-milk"
+    },
+    {
+      "title": "Menagerie",
+      "image": "assets/img/menagerie.jpg",
+      "award": "",
+      "link": "https://koikingdom.bandcamp.com/album/menagerie"
+    },
+    {
+      "title": "Follow Me Through the Red Ash",
+      "image": "assets/img/red-ash.jpg",
+      "award": "",
+      "link": "https://cheryldurongpisitkul.bandcamp.com/album/follow-me-through-the-red-ash"
+    }
+  ]
+}
