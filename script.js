@@ -9,21 +9,28 @@ if (header) {
 }
 
 // Releases (upcoming + previous) — fetched from content/releases.json (editable via the CMS at /admin)
-const releaseFeature = document.querySelector(".release-feature");
+const upcomingRelease = document.querySelector(".upcoming-release");
 const releaseList = document.querySelector(".release-list");
-if (releaseFeature || releaseList) {
+if (upcomingRelease || releaseList) {
   fetch("content/releases.json")
     .then((res) => res.json())
     .then((data) => {
-      if (releaseFeature && data.upcoming) {
-        const upcoming = data.upcoming;
-        releaseFeature.querySelector(".release-feature-media img").src = upcoming.image;
-        releaseFeature.querySelector(".release-feature-media img").alt = upcoming.title;
-        releaseFeature.querySelector(".eyebrow").textContent = upcoming.label;
-        releaseFeature.querySelector("h3").textContent = upcoming.title;
-        releaseFeature.querySelector(".release-date").textContent = upcoming.date;
+      // "upcoming" is a list capped at one entry in the CMS, so it can be left
+      // empty to hide this section entirely instead of always showing something.
+      const upcoming = upcomingRelease && data.upcoming && data.upcoming[0];
 
-        const upcomingLink = releaseFeature.querySelector(".btn-outline");
+      if (upcomingRelease) {
+        upcomingRelease.hidden = !upcoming;
+      }
+
+      if (upcoming) {
+        upcomingRelease.querySelector(".release-feature-media img").src = upcoming.image;
+        upcomingRelease.querySelector(".release-feature-media img").alt = upcoming.title;
+        upcomingRelease.querySelector(".eyebrow").textContent = upcoming.label;
+        upcomingRelease.querySelector("h3").textContent = upcoming.title;
+        upcomingRelease.querySelector(".release-date").textContent = upcoming.date;
+
+        const upcomingLink = upcomingRelease.querySelector(".btn-outline");
         upcomingLink.href = upcoming.link;
         upcomingLink.textContent = `${upcoming.label} →`;
       }

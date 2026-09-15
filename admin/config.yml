@@ -19,7 +19,11 @@ collections:
         fields:
           - label: "Upcoming Release"
             name: "upcoming"
-            widget: "object"
+            widget: "list"
+            min: 0
+            max: 1
+            hint: "Leave empty (delete the entry, if present) to hide the Upcoming Release section on the site entirely."
+            summary: "{{title}}"
             fields:
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Label", name: "label", widget: "string" }
