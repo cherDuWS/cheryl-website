@@ -48,8 +48,8 @@ collections:
             widget: "list"
             summary: "{{date}} — {{name}}"
             fields:
-              - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true }
-              - { label: "End Date (optional, for multi-day gigs)", name: "endDate", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, required: false, default: "" }
+              - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, pattern: ["^\\d{4}-\\d{2}-\\d{2}$", "Date must be in YYYY-MM-DD format"] }
+              - { label: "End Date (optional, for multi-day gigs)", name: "endDate", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, picker_utc: true, required: false, default: "", pattern: ["^$|^\\d{4}-\\d{2}-\\d{2}$", "Date must be in YYYY-MM-DD format, or left empty"] }
               - { label: "Act / Event Name", name: "name", widget: "string" }
               - { label: "Venue", name: "venue", widget: "string" }
               - { label: "Venue Link (optional)", name: "link", widget: "string", required: false, default: "" }
