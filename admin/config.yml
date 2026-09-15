@@ -1,11 +1,10 @@
 backend:
-  name: github
-  repo: samuelLingMel/cheryl-website
+  name: git-gateway
   branch: main
-  # Self-hosted OAuth provider (not Netlify) — deploy the api/auth.js + api/callback.js
-  # functions in this repo somewhere (e.g. Vercel) and put that deployment's URL below.
-  base_url: https://cheryl-website-rose.vercel.app
-  auth_endpoint: api/auth
+  # Git Gateway logs people in with plain email/password (via Netlify Identity)
+  # instead of a GitHub account. Requires this admin panel to be served from a
+  # Netlify site (the public site itself can stay on GitHub Pages) with Identity
+  # and Git Gateway turned on in that Netlify site's settings.
 
 media_folder: "assets/img"
 public_folder: "/assets/img"

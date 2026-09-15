@@ -12,6 +12,19 @@
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+<!-- Netlify Identity: handles invite/password-reset links for the CMS at /admin/ -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", (user) => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
 
 <header class="site-header">
   <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
