@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Manage Content — Cheryl Durongpisitkul</title>
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="manage.css" />
+</head>
+<body class="manage-body">
+
+<header class="manage-header">
+  <h1>Manage Site Content</h1>
+  <div id="auth-area">
+    <button id="login-btn" class="btn-outline">Login with GitHub</button>
+    <button id="logout-btn" class="btn-outline" hidden>Log out</button>
+  </div>
+</header>
+
+<p id="login-prompt">Log in with GitHub (an account with write access to this repo) to edit the Gig Guide and Releases lists.</p>
+
+<main id="manage-main" hidden>
+  <nav class="manage-tabs">
+    <button type="button" class="tab-btn active" data-tab="gigs">Gig Guide</button>
+    <button type="button" class="tab-btn" data-tab="releases">Releases</button>
+  </nav>
+
+  <section id="tab-gigs" class="tab-panel">
+    <h2>Gig Guide</h2>
+    <div id="gigs-list"></div>
+    <button type="button" id="add-gig-btn" class="btn-outline">+ Add Gig</button>
+    <div class="save-row">
+      <button type="button" id="save-gigs-btn" class="btn-outline">Save Changes</button>
+      <span id="gigs-status" class="status-text"></span>
+    </div>
+  </section>
+
+  <section id="tab-releases" class="tab-panel" hidden>
+    <h2>Upcoming Release</h2>
+    <div id="upcoming-release"></div>
+    <button type="button" id="add-upcoming-btn" class="btn-outline" hidden>+ Add Upcoming Release</button>
+
+    <h2>Previous Releases</h2>
+    <div id="releases-list"></div>
+    <button type="button" id="add-release-btn" class="btn-outline">+ Add Release</button>
+
+    <div class="save-row">
+      <button type="button" id="save-releases-btn" class="btn-outline">Save Changes</button>
+      <span id="releases-status" class="status-text"></span>
+    </div>
+  </section>
+</main>
+
+<script src="manage.js"></script>
+</body>
+</html>

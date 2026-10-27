@@ -1,0 +1,137 @@
+.manage-body {
+  min-height: 100vh;
+  padding: 2rem clamp(1.5rem, 5vw, 4rem);
+}
+
+.manage-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.manage-header h1 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+}
+
+#login-prompt {
+  color: var(--text-dim);
+  margin-bottom: 2rem;
+}
+
+.manage-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.tab-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.tab-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.tab-panel h2 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  margin: 1.5rem 0 1rem;
+}
+
+.edit-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  align-items: end;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-raised);
+}
+
+.edit-row label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.edit-row input[type="text"],
+.edit-row input[type="date"] {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+
+.cover-preview {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 0.35rem;
+  background: var(--bg);
+}
+
+.image-path {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  word-break: break-all;
+}
+
+.remove-btn {
+  align-self: start;
+  background: none;
+  border: 1px solid var(--border);
+  color: #e07a6b;
+  border-radius: 4px;
+  padding: 0.5rem 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.remove-btn:hover { border-color: #e07a6b; }
+
+.save-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.status-text {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.empty-hint {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
