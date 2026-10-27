@@ -1,12 +1,13 @@
 // Custom content manager — talks directly to the GitHub REST API to read and
-// write content/gigs.json and content/releases.json, using an access token
-// obtained through the GitHub OAuth popup flow at /api/auth + /api/callback.
+// write content/gigs.json and content/releases.json. Access is gated by a
+// shared password, checked by a small Cloudflare Pages Function
+// (functions/api/login.js) which, if the password is correct, hands back a
+// GitHub Personal Access Token that has write access to this repo.
 //
-// Security note: this stores the GitHub token in sessionStorage so it survives
-// a page refresh within the same tab, but is cleared when the tab closes. The
-// token has full "repo" scope (same as Decap CMS's github backend had) — this
-// page should only ever be used by people who are meant to have push access to
-// this repo, same as before.
+// Security note: this stores that GitHub token in sessionStorage so it
+// survives a page refresh within the same tab, but is cleared when the tab
+// closes. The token has write access to this repo — the password is what
+// protects it, so don't share it with anyone who shouldn't have that access.
 
 const REPO = "cherDuWS/cheryl-website";
 const BRANCH = "main";
@@ -15,12 +16,10 @@ const RELEASES_PATH = "content/releases.json";
 const IMAGE_DIR = "assets/img";
 const API_ROOT = "https://api.github.com";
 const TOKEN_KEY = "cms_github_token";
-// The OAuth proxy (api/auth.js + api/callback.js) only exists as serverless
-// functions on Vercel — it's not part of the static site, so this page must
-// always point at it by full URL rather than a relative path. Otherwise this
-// breaks whenever /manage/ itself is viewed from somewhere else (GitHub Pages,
-// a local dev server, etc.), since there's no /api/auth to find there.
-const OAUTH_BASE_URL = "https://cheryl-website-rose.vercel.app";
+// The login function (functions/api/login.js) only exists on Cloudflare Pages
+// — it's not part of the GitHub Pages static site, so this page must always
+// point at it by full URL rather than a relative path.
+const LOGIN_BASE_URL = "https://cheryl-website-manage.pages.dev";
 
 let gigsState = { data: null, sha: null };
 let releasesState = { data: null, sha: null };
@@ -39,32 +38,25 @@ function clearToken() {
   sessionStorage.removeItem(TOKEN_KEY);
 }
 
-function login() {
-  const popup = window.open(`${OAUTH_BASE_URL}/api/auth`, "github-oauth", "width=600,height=700");
+async function login(password) {
+  const errorEl = document.getElementById("login-error");
+  errorEl.hidden = true;
 
-  function receiveMessage(e) {
-    if (typeof e.data !== "string" || !e.data.startsWith("authorization:github")) return;
+  const res = await fetch(`${LOGIN_BASE_URL}/api/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ password }),
+  });
+  const body = await res.json().catch(() => ({}));
 
-    if (e.data === "authorizing:github") {
-      // Handshake expected by api/callback.js: reply so it knows where to send
-      // the real token.
-      popup.postMessage("authorizing:github", "*");
-      return;
-    }
-
-    window.removeEventListener("message", receiveMessage);
-
-    if (e.data.startsWith("authorization:github:success:")) {
-      const payload = JSON.parse(e.data.replace("authorization:github:success:", ""));
-      setToken(payload.token);
-      if (popup) popup.close();
-      onLoggedIn();
-    } else {
-      alert("GitHub login failed.");
-    }
+  if (!res.ok) {
+    errorEl.textContent = body.error || "Login failed.";
+    errorEl.hidden = false;
+    return;
   }
 
-  window.addEventListener("message", receiveMessage);
+  setToken(body.token);
+  onLoggedIn();
 }
 
 function logout() {
@@ -342,7 +334,7 @@ document.querySelectorAll(".tab-btn").forEach((btn) => {
 
 async function onLoggedIn() {
   document.getElementById("login-prompt").hidden = true;
-  document.getElementById("login-btn").hidden = true;
+  document.getElementById("login-form").hidden = true;
   document.getElementById("logout-btn").hidden = false;
   document.getElementById("manage-main").hidden = false;
 
@@ -371,7 +363,12 @@ async function onLoggedIn() {
   }
 }
 
-document.getElementById("login-btn").addEventListener("click", login);
+document.getElementById("login-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const passwordInput = document.getElementById("password-input");
+  login(passwordInput.value);
+  passwordInput.value = "";
+});
 document.getElementById("logout-btn").addEventListener("click", logout);
 
 if (getToken()) {

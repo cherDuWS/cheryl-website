@@ -12,12 +12,16 @@
 <header class="manage-header">
   <h1>Manage Site Content</h1>
   <div id="auth-area">
-    <button id="login-btn" class="btn-outline">Login with GitHub</button>
+    <form id="login-form">
+      <input type="password" id="password-input" placeholder="Password" autocomplete="current-password" />
+      <button type="submit" id="login-btn" class="btn-outline">Unlock</button>
+    </form>
     <button id="logout-btn" class="btn-outline" hidden>Log out</button>
   </div>
 </header>
 
-<p id="login-prompt">Log in with GitHub (an account with write access to this repo) to edit the Gig Guide and Releases lists.</p>
+<p id="login-prompt">Enter the password to edit the Gig Guide and Releases lists.</p>
+<p id="login-error" class="status-text" hidden></p>
 
 <main id="manage-main" hidden>
   <nav class="manage-tabs">
