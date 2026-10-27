@@ -19,7 +19,7 @@ const TOKEN_KEY = "cms_github_token";
 // The login function (functions/api/login.js) only exists on Cloudflare Pages
 // — it's not part of the GitHub Pages static site, so this page must always
 // point at it by full URL rather than a relative path.
-const LOGIN_BASE_URL = "https://cheryl-website-manage.pages.dev";
+const LOGIN_BASE_URL = "https://cheryl-website.pages.dev";
 
 let gigsState = { data: null, sha: null };
 let releasesState = { data: null, sha: null };
