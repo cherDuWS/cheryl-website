@@ -1,10 +1,11 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: cherDuWS/cheryl-website
   branch: main
-  # Git Gateway logs people in with plain email/password (via Netlify Identity)
-  # instead of a GitHub account. Requires this admin panel to be served from a
-  # Netlify site (the public site itself can stay on GitHub Pages) with Identity
-  # and Git Gateway turned on in that Netlify site's settings.
+  # Self-hosted OAuth provider (not Netlify — it started charging). Deploys as
+  # api/auth.js + api/callback.js in this repo, running on Vercel's free tier.
+  base_url: https://cheryl-website-rose.vercel.app
+  auth_endpoint: api/auth
 
 media_folder: "assets/img"
 public_folder: "/assets/img"
