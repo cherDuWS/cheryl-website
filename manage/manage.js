@@ -15,6 +15,12 @@ const RELEASES_PATH = "content/releases.json";
 const IMAGE_DIR = "assets/img";
 const API_ROOT = "https://api.github.com";
 const TOKEN_KEY = "cms_github_token";
+// The OAuth proxy (api/auth.js + api/callback.js) only exists as serverless
+// functions on Vercel — it's not part of the static site, so this page must
+// always point at it by full URL rather than a relative path. Otherwise this
+// breaks whenever /manage/ itself is viewed from somewhere else (GitHub Pages,
+// a local dev server, etc.), since there's no /api/auth to find there.
+const OAUTH_BASE_URL = "https://cheryl-website-rose.vercel.app";
 
 let gigsState = { data: null, sha: null };
 let releasesState = { data: null, sha: null };
@@ -34,7 +40,7 @@ function clearToken() {
 }
 
 function login() {
-  const popup = window.open("/api/auth", "github-oauth", "width=600,height=700");
+  const popup = window.open(`${OAUTH_BASE_URL}/api/auth`, "github-oauth", "width=600,height=700");
 
   function receiveMessage(e) {
     if (typeof e.data !== "string" || !e.data.startsWith("authorization:github")) return;
